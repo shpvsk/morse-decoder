@@ -47,8 +47,8 @@ function decode(expr) {
 	function sliceChunks(array, chunkSize) {
     const res = []
     for (let i = 0; i < array.length; i += chunkSize) {
-        const chunk = array.slice(i, i + chunkSize)
-        res.push(chunk)
+			const chunk = array.slice(i, i + chunkSize)
+			res.push(chunk)
     }
     return res
 	}
@@ -59,8 +59,8 @@ function decode(expr) {
 	const codeArr = Object.entries(MORSE_TABLE).reduce((accum, item, index) => {
 		let [key, value] = item
 		key = [...key].map(s => {
-				if(s == dot) return '10'
-				if(s == dashes) return '11'
+			if(s == dot) return '10'
+			if(s == dashes) return '11'
 		})
 		key = key.join(' ').replace(/\s+/g, '')
 		if (key.length < 10) key = key.padStart(10, '0')
@@ -70,6 +70,14 @@ function decode(expr) {
 	}, {})
 
 
+	const resArray = exprArr.map(el => {
+		for (const key in codeArr) {
+			if (key == el) return codeArr[key]
+		}
+		if(el == space) return ' '
+	})
+
+	return resArray.join('')
 }
 
 
