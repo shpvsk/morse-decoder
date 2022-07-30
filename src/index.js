@@ -56,7 +56,21 @@ function decode(expr) {
 	const exprArr = sliceChunks(expr, 10)
 
 
-	}
+	const codeArr = Object.entries(MORSE_TABLE).reduce((accum, item, index) => {
+		let [key, value] = item
+		key = [...key].map(s => {
+				if(s == dot) return '10'
+				if(s == dashes) return '11'
+		})
+		key = key.join(' ').replace(/\s+/g, '')
+		if (key.length < 10) key = key.padStart(10, '0')
+
+		accum[key] = value
+		return accum
+	}, {})
+
+
+}
 
 
 module.exports = {
